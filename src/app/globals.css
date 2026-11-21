@@ -1,26 +1,259 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --obsidian-default: #07090F;
+  --obsidian-800: #0C0E14;
+  --obsidian-700: #11131A;
+  --obsidian-surface: #111827;
+  --obsidian-border: rgba(187, 216, 255, 0.12);
+
+  --electric-kinetic: #247BFF;
+  --electric-neon: #398BFF;
+  --electric-ice: #BBD8FF;
+  --electric-primary: #AFC6FF;
+  --electric-container: #518DFF;
+  --electric-deep: #0272E4;
+
+  --cloud-card: #FFFFFF;
+  --cloud-canvas: #F5F7FC;
+  --foreground: #E1E2EB;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-obsidian-default: #07090F;
+  --color-obsidian-800: #0C0E14;
+  --color-obsidian-700: #11131A;
+  --color-obsidian-surface: #111827;
+  --color-obsidian-border: rgba(187, 216, 255, 0.12);
+
+  --color-electric-kinetic: #247BFF;
+  --color-electric-neon: #398BFF;
+  --color-electric-ice: #BBD8FF;
+  --color-electric-primary: #AFC6FF;
+  --color-electric-container: #518DFF;
+  --color-electric-deep: #0272E4;
+
+  --color-cloud-card: #FFFFFF;
+  --color-cloud-canvas: #F5F7FC;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Base Body Canvas */
+body {
+  background-color: #07090F;
+  color: #E1E2EB;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* ======================================================== */
+/* EXACT GAUSSIAN WHITE CARD REPLICA FROM USER'S IMAGE */
+/* White card surface with royal blue (top-left) & cobalt blue (bottom-right) diffused Gaussian glows */
+/* ======================================================== */
+.gaussian-cloud-card {
+  position: relative;
+  background: #FFFFFF;
+  color: #090D1A;
+  border-radius: 1.75rem;
+  overflow: hidden;
+  box-shadow: 0 20px 45px -10px rgba(22, 78, 158, 0.15), 0 0 0 1px rgba(187, 216, 255, 0.5);
+  isolation: isolate;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.gaussian-cloud-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px -12px rgba(22, 78, 158, 0.28), 0 0 0 1px rgba(36, 123, 255, 0.6);
+}
+
+/* Top-Left Deep Navy / Dark Blue Gaussian Glow Bloom */
+.gaussian-cloud-card::before {
+  content: "";
+  position: absolute;
+  top: -25%;
+  left: -20%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, #091e42 0%, #0c2d6b 40%, rgba(12, 45, 107, 0.4) 60%, transparent 75%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.5s ease;
+}
+
+/* Bottom-Right Deep Dark Blue Gaussian Glow Bloom */
+.gaussian-cloud-card::after {
+  content: "";
+  position: absolute;
+  bottom: -25%;
+  right: -20%;
+  width: 75%;
+  height: 75%;
+  background: radial-gradient(circle, #071938 0%, #0e3475 40%, rgba(14, 52, 117, 0.4) 60%, transparent 75%);
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.5s ease;
+}
+
+.gaussian-cloud-card:hover::before {
+  transform: scale(1.15) translate(4%, 4%);
+}
+
+.gaussian-cloud-card:hover::after {
+  transform: scale(1.15) translate(-4%, -4%);
+}
+
+/* Gaussian Dark Card configured with crisp white background and top-left/bottom-right deep dark blue gaussian blurs */
+.gaussian-dark-card {
+  position: relative;
+  background: #FFFFFF;
+  color: #090D1A;
+  border-radius: 1.75rem;
+  border: 1px solid rgba(12, 45, 107, 0.35);
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 15px 35px -10px rgba(9, 30, 66, 0.25);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gaussian-dark-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(12, 45, 107, 0.7);
+  box-shadow: 0 25px 50px -10px rgba(9, 30, 66, 0.35);
+}
+
+.gaussian-dark-card::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -25%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, #091e42 0%, #0c2d6b 40%, rgba(12, 45, 107, 0.4) 60%, transparent 75%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.5s ease;
+}
+
+.gaussian-dark-card::after {
+  content: "";
+  position: absolute;
+  bottom: -30%;
+  right: -25%;
+  width: 75%;
+  height: 75%;
+  background: radial-gradient(circle, #071938 0%, #0e3475 40%, rgba(14, 52, 117, 0.4) 60%, transparent 75%);
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.5s ease;
+}
+
+.gaussian-dark-card:hover::before {
+  transform: scale(1.15) translate(4%, 4%);
+}
+
+.gaussian-dark-card:hover::after {
+  transform: scale(1.15) translate(-4%, -4%);
+}
+
+/* Kinetic Electric Buttons */
+.btn-electric {
+  background: #247BFF;
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 0 25px rgba(36, 123, 255, 0.45);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-electric:hover {
+  background: #398BFF;
+  box-shadow: 0 0 35px rgba(57, 139, 255, 0.75);
+  transform: translateY(-1px);
+}
+
+.btn-obsidian-ghost {
+  background: rgba(17, 24, 39, 0.8);
+  color: #BBD8FF;
+  border: 1px solid rgba(187, 216, 255, 0.25);
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-obsidian-ghost:hover {
+  border-color: #398BFF;
+  background: rgba(36, 123, 255, 0.15);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* Light Card Soft Badge */
+.cloud-card-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(187, 216, 255, 0.4);
+  color: #0272E4;
+  font-family: var(--font-geist-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Pulse Animation for Live telemetry badges */
+@keyframes electric-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(57, 139, 255, 0.6);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.15);
+    box-shadow: 0 0 20px rgba(57, 139, 255, 0.9);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.electric-live-dot {
+  animation: electric-pulse 1.6s infinite ease-in-out;
+}
+
+/* Seamless Left-to-Right Continuous Marquee */
+@keyframes sports-marquee-ltr {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-sports-ltr {
+  display: flex;
+  width: max-content;
+  animation: sports-marquee-ltr 45s linear infinite;
+}
+
+.animate-sports-ltr:hover {
+  animation-play-state: paused;
+}
+
+/* Left-to-Right Continuous Countdown Marquee */
+@keyframes countdown-marquee-ltr {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-countdown-ltr {
+  display: flex;
+  width: max-content;
+  animation: countdown-marquee-ltr 30s linear infinite;
+}
+
+.animate-countdown-ltr:hover {
+  animation-play-state: paused;
 }
