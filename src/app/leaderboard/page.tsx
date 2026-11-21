@@ -35,7 +35,7 @@ export default function LeaderboardPage() {
       particleCount: 80,
       spread: 60,
       origin: { y: 0.6 },
-      colors: ["#F97316", "#D946EF", "#F59E0B"],
+      colors: ["#F97316", "#247BFF", "#F59E0B"],
     });
   };
 
@@ -47,11 +47,11 @@ export default function LeaderboardPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#090314] text-slate-100 flex flex-col font-sans selection:bg-[#D946EF] selection:text-white">
+    <div className="min-h-screen bg-[#07090F] text-slate-100 flex flex-col font-sans selection:bg-[#247BFF] selection:text-white">
       <Navbar />
 
       {/* 6. LEADERBOARD HERO - EXACT MATCH TO MOCKUP 6 */}
-      <section className="relative overflow-hidden pt-16 pb-12 rc-mesh-bg border-b border-[#2D164E]">
+      <section className="relative overflow-hidden pt-16 pb-12 bg-gradient-to-b from-[#0C0E14] to-[#07090F] border-b border-[rgba(187,216,255,0.15)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h1 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white font-sans">
             Leaderboard
@@ -71,8 +71,8 @@ export default function LeaderboardPage() {
                 }}
                 className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   activeTab === tab
-                    ? "bg-[#D946EF] text-white shadow-[0_0_15px_rgba(217,70,239,0.5)]"
-                    : "bg-[#20103A] text-slate-300 hover:bg-[#2C1650] border border-[#3C1D6B]"
+                    ? "bg-[#247BFF] text-white shadow-[0_0_15px_rgba(217,70,239,0.5)]"
+                    : "bg-[#111827] text-slate-300 hover:bg-[#2C1650] border border-[#3C1D6B]"
                 }`}
               >
                 {tab}
@@ -87,10 +87,10 @@ export default function LeaderboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Left Column: Rankings Table matching Mockup 6 */}
-          <div className="lg:col-span-8 rc-card rounded-3xl p-6 sm:p-8 border border-[#2D164E] shadow-2xl">
-            <div className="flex items-center justify-between pb-6 border-b border-[#2D164E]">
+          <div className="lg:col-span-8 bg-[#0C0E14] border border-[#BBD8FF]/15 rounded-3xl p-6 sm:p-8 border border-[rgba(187,216,255,0.15)] shadow-2xl">
+            <div className="flex items-center justify-between pb-6 border-b border-[rgba(187,216,255,0.15)]">
               <div>
-                <span className="text-xs font-mono font-bold uppercase text-[#D946EF]">OVERALL STANDINGS</span>
+                <span className="text-xs font-mono font-bold uppercase text-[#247BFF]">OVERALL STANDINGS</span>
                 <h3 className="text-xl font-bold text-white mt-0.5">Top Contenders ({activeTab})</h3>
               </div>
               <span className="px-3 py-1 rounded-full bg-[#F59E0B]/20 border border-[#F59E0B]/40 text-[#F59E0B] text-xs font-mono font-bold">
@@ -102,21 +102,21 @@ export default function LeaderboardPage() {
             <div className="overflow-x-auto mt-4">
               <table className="w-full text-left text-xs sm:text-sm">
                 <thead>
-                  <tr className="border-b border-[#2D164E] text-[11px] font-mono uppercase text-slate-400">
+                  <tr className="border-b border-[rgba(187,216,255,0.15)] text-[11px] font-mono uppercase text-slate-400">
                     <th className="py-3 px-3">#</th>
                     <th className="py-3 px-3">Team</th>
                     <th className="py-3 px-3 text-right">Points</th>
                     <th className="py-3 px-3 text-right">Played</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#2D164E]/60">
+                <tbody className="divide-y divide-[rgba(187,216,255,0.15)]/60">
                   {rankings.map((r: any, idx: number) => (
                     <tr
                       key={idx}
-                      className="hover:bg-[#20103A]/60 transition-colors group cursor-pointer"
+                      className="hover:bg-[#111827]/60 transition-colors group cursor-pointer"
                       onClick={triggerCelebration}
                     >
-                      <td className="py-4 px-3 font-mono font-bold text-[#D946EF]">
+                      <td className="py-4 px-3 font-mono font-bold text-[#247BFF]">
                         {r.position || idx + 1}
                       </td>
                       <td className="py-4 px-3 font-bold text-white flex items-center gap-2">
@@ -140,7 +140,7 @@ export default function LeaderboardPage() {
 
           {/* Right Column: 3D Championship Podium & Trophy from Mockup 6 */}
           <div className="lg:col-span-4 flex justify-center">
-            <div className="relative w-full max-w-[340px] aspect-[4/5] rounded-3xl overflow-hidden rc-card border border-[#A855F7]/30 p-6 flex flex-col items-center justify-end text-center shadow-[0_0_50px_rgba(245,158,11,0.2)]">
+            <div className="relative w-full max-w-[340px] aspect-[4/5] rounded-3xl overflow-hidden bg-[#0C0E14] border border-[#BBD8FF]/15 border border-[#398BFF]/30 p-6 flex flex-col items-center justify-end text-center shadow-[0_0_50px_rgba(245,158,11,0.2)]">
               
               {/* Podium Lights */}
               <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-48 h-48 bg-[#F59E0B]/25 rounded-full blur-[70px] pointer-events-none" />
@@ -163,7 +163,7 @@ export default function LeaderboardPage() {
                   <span className="text-[10px] font-mono font-bold text-white">CHAMPION</span>
                 </div>
                 {/* 3rd Place Step */}
-                <div className="w-20 h-12 rounded-t-xl bg-[#20103A] border border-[#3C1D6B] flex flex-col items-center justify-center">
+                <div className="w-20 h-12 rounded-t-xl bg-[#111827] border border-[#3C1D6B] flex flex-col items-center justify-center">
                   <span className="text-xs font-mono font-bold text-amber-600">3</span>
                   <span className="text-[9px] font-mono text-slate-400">BRONZE</span>
                 </div>
@@ -175,9 +175,9 @@ export default function LeaderboardPage() {
         </div>
 
         {/* RECHARTS DATA VISUALIZATION */}
-        <section className="rc-card rounded-3xl p-6 sm:p-10 border border-[#2D164E]">
+        <section className="bg-[#0C0E14] border border-[#BBD8FF]/15 rounded-3xl p-6 sm:p-10 border border-[rgba(187,216,255,0.15)]">
           <div className="mb-6">
-            <span className="text-xs font-mono font-bold uppercase text-[#D946EF]">
+            <span className="text-xs font-mono font-bold uppercase text-[#247BFF]">
               MEDAL DISTRIBUTION ANALYTICS
             </span>
             <h3 className="text-xl font-bold text-white mt-1">

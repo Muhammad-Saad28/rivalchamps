@@ -46,7 +46,7 @@ function SportDetailContent() {
   if (loading) {
     return (
       <div className="py-32 text-center font-mono text-xs text-slate-400 flex items-center justify-center gap-2">
-        <div className="w-4 h-4 border-2 border-[#D946EF] border-t-transparent rounded-full animate-spin" />
+        <div className="w-4 h-4 border-2 border-[#247BFF] border-t-transparent rounded-full animate-spin" />
         Loading Arena Specifications...
       </div>
     );
@@ -68,12 +68,12 @@ function SportDetailContent() {
   return (
     <>
       {/* 4. SPORT DETAIL HERO - EXACT MATCH TO MOCKUP 4 */}
-      <section className="relative overflow-hidden pt-12 pb-20 rc-mesh-bg border-b border-[#2D164E]">
+      <section className="relative overflow-hidden pt-12 pb-20 bg-gradient-to-b from-[#0C0E14] to-[#07090F] border-b border-[rgba(187,216,255,0.15)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
           <Link
             href="/sports"
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#D946EF] hover:text-white transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#247BFF] hover:text-white transition-colors mb-8"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Sports List</span>
@@ -83,7 +83,7 @@ function SportDetailContent() {
             
             {/* Left Column: Title, Rules • Format • Schedule, Description, [View Rules] Button */}
             <div className="lg:col-span-7 space-y-5">
-              <span className="px-3 py-1 rounded-full bg-[#D946EF]/20 border border-[#D946EF]/40 text-[#D946EF] text-xs font-mono font-bold uppercase tracking-wider">
+              <span className="px-3 py-1 rounded-full bg-[#247BFF]/20 border border-[#247BFF]/40 text-[#247BFF] text-xs font-mono font-bold uppercase tracking-wider">
                 {sport.category} Discipline
               </span>
               
@@ -120,7 +120,7 @@ function SportDetailContent() {
               {/* Arena Details */}
               <div className="pt-4 flex items-center gap-6 text-xs text-slate-400">
                 <span className="flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-[#D946EF]" />
+                  <MapPin className="w-4 h-4 text-[#247BFF]" />
                   {sport.venue}
                 </span>
                 <span className="flex items-center gap-1.5">
@@ -132,16 +132,16 @@ function SportDetailContent() {
 
             {/* Right Column: Sport Visual with Stadium Angle matching Mockup 4 */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-full max-w-[420px] aspect-[4/3] rounded-3xl overflow-hidden rc-card border border-[#A855F7]/30 shadow-[0_0_50px_rgba(217,70,239,0.2)]">
+              <div className="relative w-full max-w-[420px] aspect-[4/3] rounded-3xl overflow-hidden bg-[#0C0E14] border border-[#BBD8FF]/15 border border-[#398BFF]/30 shadow-[0_0_50px_rgba(217,70,239,0.2)]">
                 <img
                   src={sportHeroImage}
                   alt={sport.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#140824] via-transparent to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#07090F] via-transparent to-transparent opacity-80" />
                 <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-white">
-                  <span className="font-bold uppercase tracking-wider font-mono text-[#D946EF]">{sport.name}</span>
-                  <span className="px-2 py-0.5 rounded bg-[#090314]/80 border border-[#D946EF]/30 text-[10px] uppercase font-mono font-bold text-[#F59E0B]">
+                  <span className="font-bold uppercase tracking-wider font-mono text-[#247BFF]">{sport.name}</span>
+                  <span className="px-2 py-0.5 rounded bg-[#07090F]/80 border border-[#247BFF]/30 text-[10px] uppercase font-mono font-bold text-[#F59E0B]">
                     OFFICIAL BRACKET
                   </span>
                 </div>
@@ -156,8 +156,8 @@ function SportDetailContent() {
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full space-y-12">
         
         {/* Tournament Bracket Tree */}
-        <section className="rc-card rounded-2xl p-6 sm:p-8 border border-[#2D164E]">
-          <h2 className="text-xl font-bold uppercase text-white pb-4 border-b border-[#2D164E] flex items-center gap-2">
+        <section className="bg-[#0C0E14] border border-[#BBD8FF]/15 rounded-2xl p-6 sm:p-8 border border-[rgba(187,216,255,0.15)]">
+          <h2 className="text-xl font-bold uppercase text-white pb-4 border-b border-[rgba(187,216,255,0.15)] flex items-center gap-2">
             <Trophy className="w-5 h-5 text-[#F59E0B]" />
             <span>Tournament Knockout Bracket</span>
           </h2>
@@ -170,9 +170,9 @@ function SportDetailContent() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Rules Section */}
-          <div id="rules" className="lg:col-span-2 rc-card rounded-2xl p-6 sm:p-8 border border-[#2D164E] space-y-6">
-            <h2 className="text-xl font-bold uppercase text-white pb-4 border-b border-[#2D164E] flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-[#D946EF]" />
+          <div id="rules" className="lg:col-span-2 bg-[#0C0E14] border border-[#BBD8FF]/15 rounded-2xl p-6 sm:p-8 border border-[rgba(187,216,255,0.15)] space-y-6">
+            <h2 className="text-xl font-bold uppercase text-white pb-4 border-b border-[rgba(187,216,255,0.15)] flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-[#247BFF]" />
               <span>Official Match Rules & Regulations</span>
             </h2>
 
@@ -183,9 +183,9 @@ function SportDetailContent() {
             ) : (
               <div className="space-y-4">
                 {sportRules.map((r) => (
-                  <div key={r.id} className="p-4 rounded-xl bg-[#160B29] border border-[#2D164E] text-xs">
+                  <div key={r.id} className="p-4 rounded-xl bg-[#0C0E14] border border-[rgba(187,216,255,0.15)] text-xs">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#D946EF]/20 text-[#D946EF] font-bold uppercase">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#247BFF]/20 text-[#247BFF] font-bold uppercase">
                         {r.category}
                       </span>
                       <h4 className="font-bold text-white text-sm">{r.title}</h4>
@@ -198,8 +198,8 @@ function SportDetailContent() {
           </div>
 
           {/* Assigned Leads Sidebar */}
-          <div className="rc-card rounded-2xl p-6 border border-[#2D164E] space-y-4 h-fit">
-            <h3 className="text-base font-bold uppercase text-white pb-3 border-b border-[#2D164E] flex items-center gap-2">
+          <div className="bg-[#0C0E14] border border-[#BBD8FF]/15 rounded-2xl p-6 border border-[rgba(187,216,255,0.15)] space-y-4 h-fit">
+            <h3 className="text-base font-bold uppercase text-white pb-3 border-b border-[rgba(187,216,255,0.15)] flex items-center gap-2">
               <User className="w-4 h-4 text-[#F59E0B]" />
               <span>Appointed Sports Leads</span>
             </h3>
@@ -209,9 +209,9 @@ function SportDetailContent() {
             ) : (
               <div className="space-y-3">
                 {assignedLeads.map((ld) => (
-                  <div key={ld.id} className="p-3.5 rounded-xl bg-[#160B29] border border-[#2D164E] space-y-1">
+                  <div key={ld.id} className="p-3.5 rounded-xl bg-[#0C0E14] border border-[rgba(187,216,255,0.15)] space-y-1">
                     <span className="font-bold text-white text-sm block">{ld.name}</span>
-                    <span className="text-[11px] text-[#D946EF] font-mono block">Field Coordinator</span>
+                    <span className="text-[11px] text-[#247BFF] font-mono block">Field Coordinator</span>
                     {ld.phone && <span className="text-xs text-slate-400 block font-mono">{ld.phone}</span>}
                   </div>
                 ))}
@@ -229,7 +229,7 @@ function SportDetailContent() {
 
 export default function SportDetailPage() {
   return (
-    <div className="min-h-screen bg-[#090314] text-slate-100 flex flex-col font-sans selection:bg-[#D946EF] selection:text-white">
+    <div className="min-h-screen bg-[#07090F] text-slate-100 flex flex-col font-sans selection:bg-[#247BFF] selection:text-white">
       <Navbar />
       <Suspense fallback={<div className="py-24 text-center font-mono text-xs text-slate-500">Loading sport details...</div>}>
         <SportDetailContent />

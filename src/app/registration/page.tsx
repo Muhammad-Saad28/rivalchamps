@@ -74,7 +74,7 @@ function RegistrationForm() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
       {success ? (
-        <div className="rc-card rounded-3xl border border-emerald-500/40 p-8 sm:p-12 text-center shadow-[0_0_50px_rgba(16,185,129,0.15)] max-w-xl mx-auto">
+        <div className="bg-[#0C0E14] border border-[#BBD8FF]/15 rounded-3xl border border-emerald-500/40 p-8 sm:p-12 text-center shadow-[0_0_50px_rgba(16,185,129,0.15)] max-w-xl mx-auto">
           <div className="w-16 h-16 bg-emerald-500/20 border border-emerald-500/40 rounded-2xl flex items-center justify-center mx-auto mb-4 text-emerald-400">
             <CheckCircle2 className="w-10 h-10" />
           </div>
@@ -119,7 +119,7 @@ function RegistrationForm() {
         </div>
       ) : (
         /* 9. REGISTRATION - EXACT MATCH TO MOCKUP 9 */
-        <div className="rc-card rounded-3xl border border-[#2D164E] p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+        <div className="bg-[#0C0E14] border border-[#BBD8FF]/15 rounded-3xl border border-[rgba(187,216,255,0.15)] p-8 sm:p-12 shadow-2xl relative overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             {/* Left Column: Form Fields matching Mockup 9 */}
@@ -149,7 +149,7 @@ function RegistrationForm() {
                     placeholder="Team Name"
                     value={formData.team_name}
                     onChange={(e) => setFormData({ ...formData, team_name: e.target.value })}
-                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl border border-[#3C1D6B] bg-[#160B29] text-white placeholder-slate-400 focus:outline-none focus:border-[#D946EF]"
+                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl border border-[#3C1D6B] bg-[#0C0E14] text-white placeholder-slate-400 focus:outline-none focus:border-[#247BFF]"
                   />
                 </div>
 
@@ -159,7 +159,7 @@ function RegistrationForm() {
                     required
                     value={formData.sport_id}
                     onChange={(e) => setFormData({ ...formData, sport_id: e.target.value })}
-                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl border border-[#3C1D6B] bg-[#160B29] text-white focus:outline-none focus:border-[#D946EF] cursor-pointer"
+                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl border border-[#3C1D6B] bg-[#0C0E14] text-white focus:outline-none focus:border-[#247BFF] cursor-pointer"
                   >
                     <option value="" disabled>Select Sport</option>
                     {sports.map((sp) => (
@@ -178,7 +178,7 @@ function RegistrationForm() {
                     placeholder="Captain Name"
                     value={formData.captain_name}
                     onChange={(e) => setFormData({ ...formData, captain_name: e.target.value })}
-                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl border border-[#3C1D6B] bg-[#160B29] text-white placeholder-slate-400 focus:outline-none focus:border-[#D946EF]"
+                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl border border-[#3C1D6B] bg-[#0C0E14] text-white placeholder-slate-400 focus:outline-none focus:border-[#247BFF]"
                   />
                 </div>
 
@@ -190,7 +190,7 @@ function RegistrationForm() {
                     placeholder="Registration No (e.g. 2023-CS-101)"
                     value={formData.captain_reg_no}
                     onChange={(e) => setFormData({ ...formData, captain_reg_no: e.target.value })}
-                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl border border-[#3C1D6B] bg-[#160B29] text-white placeholder-slate-400 focus:outline-none focus:border-[#D946EF]"
+                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl border border-[#3C1D6B] bg-[#0C0E14] text-white placeholder-slate-400 focus:outline-none focus:border-[#247BFF]"
                   />
                   <input
                     type="tel"
@@ -198,7 +198,7 @@ function RegistrationForm() {
                     placeholder="Phone / WhatsApp"
                     value={formData.contact_number}
                     onChange={(e) => setFormData({ ...formData, contact_number: e.target.value })}
-                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl border border-[#3C1D6B] bg-[#160B29] text-white placeholder-slate-400 focus:outline-none focus:border-[#D946EF]"
+                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl border border-[#3C1D6B] bg-[#0C0E14] text-white placeholder-slate-400 focus:outline-none focus:border-[#247BFF]"
                   />
                 </div>
 
@@ -223,12 +223,12 @@ function RegistrationForm() {
 
             {/* Right Column: Illustrated Athletes Group from Mockup 9 */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-full max-w-[360px] aspect-[4/3] rounded-3xl overflow-hidden rc-card border border-[#A855F7]/30 p-6 flex flex-col items-center justify-center text-center shadow-[0_0_50px_rgba(249,115,22,0.15)]">
-                <div className="absolute inset-0 bg-gradient-to-t from-[#140824] via-[#20103A] to-transparent pointer-events-none" />
+              <div className="relative w-full max-w-[360px] aspect-[4/3] rounded-3xl overflow-hidden bg-[#0C0E14] border border-[#BBD8FF]/15 border border-[#398BFF]/30 p-6 flex flex-col items-center justify-center text-center shadow-[0_0_50px_rgba(249,115,22,0.15)]">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#07090F] via-[#111827] to-transparent pointer-events-none" />
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#F97316]/20 rounded-full blur-[70px] pointer-events-none" />
 
                 <div className="relative z-10 space-y-3">
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-[#F97316]/30 via-[#D946EF]/30 to-[#8B5CF6]/30 border border-[#D946EF]/40 flex items-center justify-center mx-auto text-[#F59E0B]">
+                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-[#F97316]/30 via-[#247BFF]/30 to-[#BBD8FF]/30 border border-[#247BFF]/40 flex items-center justify-center mx-auto text-[#F59E0B]">
                     <Trophy className="w-10 h-10 text-[#F59E0B]" />
                   </div>
                   <h3 className="text-lg font-black uppercase text-white tracking-wide">
@@ -250,7 +250,7 @@ function RegistrationForm() {
 
 export default function RegistrationPage() {
   return (
-    <div className="min-h-screen bg-[#090314] text-slate-100 flex flex-col font-sans selection:bg-[#D946EF] selection:text-white">
+    <div className="min-h-screen bg-[#07090F] text-slate-100 flex flex-col font-sans selection:bg-[#247BFF] selection:text-white">
       <Navbar />
       <Suspense fallback={<div className="py-24 text-center font-mono text-xs text-slate-400">Loading form...</div>}>
         <RegistrationForm />

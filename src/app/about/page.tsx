@@ -9,17 +9,17 @@ import Link from "next/link";
 export default function AboutPage() {
   const stats = [
     { number: "10+", label: "Sports Disciplines", color: "text-white" },
-    { number: "1000+", label: "Participants", color: "text-[#D946EF]" },
+    { number: "1000+", label: "Participants", color: "text-[#247BFF]" },
     { number: "5+", label: "Historical Years", color: "text-white" },
   ];
 
   return (
-    <div className="min-h-screen bg-[#090314] text-slate-100 flex flex-col font-sans selection:bg-[#D946EF] selection:text-white">
+    <div className="min-h-screen bg-[#07090F] text-slate-100 flex flex-col font-sans selection:bg-[#247BFF] selection:text-white">
       <Navbar />
 
       {/* 2. ABOUT US HERO - EXACT MATCH TO MOCKUP 2 */}
-      <section className="relative overflow-hidden pt-16 pb-24 rc-mesh-bg border-b border-[#2D164E]">
-        <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-[#D946EF]/20 rounded-full blur-[120px] pointer-events-none" />
+      <section className="relative overflow-hidden pt-16 pb-24 bg-gradient-to-b from-[#0C0E14] to-[#07090F] border-b border-[rgba(187,216,255,0.15)]">
+        <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-[#247BFF]/20 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -28,7 +28,7 @@ export default function AboutPage() {
             <div className="lg:col-span-7 space-y-6">
               <div>
                 <h1 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white font-sans">
-                  About <span className="bg-gradient-to-r from-[#F97316] via-[#D946EF] to-[#8B5CF6] bg-clip-text text-transparent">RivalChamps</span>
+                  About <span className="bg-gradient-to-r from-[#F97316] via-[#247BFF] to-[#BBD8FF] bg-clip-text text-transparent">RivalChamps</span>
                 </h1>
                 <p className="text-sm sm:text-lg font-medium text-slate-300 mt-2">
                   More Than Just a Tournament
@@ -72,23 +72,23 @@ export default function AboutPage() {
 
             {/* Right Graphic: Illustrated Athletes Silhouette matching Mockup 2 */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-full max-w-[420px] aspect-[4/3] rounded-3xl overflow-hidden rc-card border border-[#A855F7]/30 p-6 flex items-center justify-center shadow-[0_0_50px_rgba(217,70,239,0.15)]">
+              <div className="relative w-full max-w-[420px] aspect-[4/3] rounded-3xl overflow-hidden bg-[#0C0E14] border border-[#BBD8FF]/15 border border-[#398BFF]/30 p-6 flex items-center justify-center shadow-[0_0_50px_rgba(217,70,239,0.15)]">
                 
                 {/* Stadium Light Beam Background */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#160B29] via-[#20123A] to-transparent pointer-events-none" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#D946EF]/25 rounded-full blur-[70px] pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0C0E14] via-[#20123A] to-transparent pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#247BFF]/25 rounded-full blur-[70px] pointer-events-none" />
 
                 {/* Athlete Artwork Graphics */}
                 <div className="relative z-10 flex flex-col items-center text-center space-y-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-[#8B5CF6]/30 border border-[#8B5CF6]/50 flex items-center justify-center text-[#D946EF]">
+                    <div className="w-12 h-12 rounded-2xl bg-[#BBD8FF]/30 border border-[#BBD8FF]/50 flex items-center justify-center text-[#247BFF]">
                       <Trophy className="w-6 h-6 text-[#F59E0B]" />
                     </div>
-                    <div className="w-16 h-16 rounded-2xl bg-[#D946EF]/30 border border-[#D946EF]/50 flex items-center justify-center text-[#D946EF]">
+                    <div className="w-16 h-16 rounded-2xl bg-[#247BFF]/30 border border-[#247BFF]/50 flex items-center justify-center text-[#247BFF]">
                       <Flame className="w-8 h-8 text-[#F97316] animate-pulse" />
                     </div>
-                    <div className="w-12 h-12 rounded-2xl bg-[#8B5CF6]/30 border border-[#8B5CF6]/50 flex items-center justify-center text-[#D946EF]">
-                      <Users className="w-6 h-6 text-[#8B5CF6]" />
+                    <div className="w-12 h-12 rounded-2xl bg-[#BBD8FF]/30 border border-[#BBD8FF]/50 flex items-center justify-center text-[#247BFF]">
+                      <Users className="w-6 h-6 text-[#BBD8FF]" />
                     </div>
                   </div>
 
@@ -113,7 +113,7 @@ export default function AboutPage() {
       <section className="py-20 bg-[#0E061D]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#D946EF]">
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#247BFF]">
               CHAMPIONSHIP PHILOSOPHY
             </span>
             <h2 className="text-3xl font-black uppercase text-white mt-1">
@@ -122,7 +122,7 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="rc-card p-8 rounded-2xl border border-[#2D164E] space-y-3">
+            <div className="bg-[#0C0E14] border border-[#BBD8FF]/15 p-8 rounded-2xl border border-[rgba(187,216,255,0.15)] space-y-3">
               <div className="w-12 h-12 rounded-xl bg-[#F97316]/20 border border-[#F97316]/40 flex items-center justify-center text-[#F97316]">
                 <Shield className="w-6 h-6" />
               </div>
@@ -132,8 +132,8 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="rc-card p-8 rounded-2xl border border-[#2D164E] space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-[#D946EF]/20 border border-[#D946EF]/40 flex items-center justify-center text-[#D946EF]">
+            <div className="bg-[#0C0E14] border border-[#BBD8FF]/15 p-8 rounded-2xl border border-[rgba(187,216,255,0.15)] space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#247BFF]/20 border border-[#247BFF]/40 flex items-center justify-center text-[#247BFF]">
                 <Target className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-white">Inclusivity Across Categories</h3>
@@ -142,8 +142,8 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="rc-card p-8 rounded-2xl border border-[#2D164E] space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-[#8B5CF6]/20 border border-[#8B5CF6]/40 flex items-center justify-center text-[#8B5CF6]">
+            <div className="bg-[#0C0E14] border border-[#BBD8FF]/15 p-8 rounded-2xl border border-[rgba(187,216,255,0.15)] space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#BBD8FF]/20 border border-[#BBD8FF]/40 flex items-center justify-center text-[#BBD8FF]">
                 <Users className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-white">Inter-Batch Camaraderie</h3>

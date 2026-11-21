@@ -65,11 +65,11 @@ export default function GalleryPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#090314] text-slate-100 flex flex-col font-sans selection:bg-[#D946EF] selection:text-white">
+    <div className="min-h-screen bg-[#07090F] text-slate-100 flex flex-col font-sans selection:bg-[#247BFF] selection:text-white">
       <Navbar />
 
       {/* 8. GALLERY HERO - EXACT MATCH TO MOCKUP 8 */}
-      <section className="relative overflow-hidden pt-16 pb-12 rc-mesh-bg border-b border-[#2D164E]">
+      <section className="relative overflow-hidden pt-16 pb-12 bg-gradient-to-b from-[#0C0E14] to-[#07090F] border-b border-[rgba(187,216,255,0.15)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h1 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white font-sans">
             Gallery
@@ -86,8 +86,8 @@ export default function GalleryPage() {
                 onClick={() => setActiveFilter(tab)}
                 className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   activeFilter === tab
-                    ? "bg-[#D946EF] text-white shadow-[0_0_15px_rgba(217,70,239,0.5)]"
-                    : "bg-[#20103A] text-slate-300 hover:bg-[#2C1650] border border-[#3C1D6B]"
+                    ? "bg-[#247BFF] text-white shadow-[0_0_15px_rgba(217,70,239,0.5)]"
+                    : "bg-[#111827] text-slate-300 hover:bg-[#2C1650] border border-[#3C1D6B]"
                 }`}
               >
                 {tab}
@@ -104,15 +104,15 @@ export default function GalleryPage() {
             <div
               key={item.id}
               onClick={() => setSelectedPhoto(item.image)}
-              className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#160B29] border border-[#2D164E] hover:border-[#D946EF]/50 transition-all cursor-pointer shadow-lg"
+              className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#0C0E14] border border-[rgba(187,216,255,0.15)] hover:border-[#247BFF]/50 transition-all cursor-pointer shadow-lg"
             >
               <img
                 src={item.image}
                 alt={item.title}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#090314] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
-                <span className="text-[10px] font-mono font-bold uppercase text-[#D946EF] block">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#07090F] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                <span className="text-[10px] font-mono font-bold uppercase text-[#247BFF] block">
                   {item.category}
                 </span>
                 <h4 className="text-xs sm:text-sm font-bold text-white line-clamp-1">
@@ -130,10 +130,10 @@ export default function GalleryPage() {
           onClick={() => setSelectedPhoto(null)}
           className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 cursor-pointer"
         >
-          <div className="relative max-w-4xl max-h-[90vh] overflow-hidden rounded-2xl border border-[#D946EF]/50">
+          <div className="relative max-w-4xl max-h-[90vh] overflow-hidden rounded-2xl border border-[#247BFF]/50">
             <button
               onClick={() => setSelectedPhoto(null)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-black/70 text-white hover:text-[#D946EF]"
+              className="absolute top-4 right-4 p-2 rounded-full bg-black/70 text-white hover:text-[#247BFF]"
             >
               <X className="w-6 h-6" />
             </button>

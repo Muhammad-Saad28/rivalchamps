@@ -30,7 +30,7 @@ function PassContent() {
           QRCode.toDataURL(verifyUrl, {
             width: 250,
             margin: 1,
-            color: { dark: "#090314", light: "#FFFFFF" },
+            color: { dark: "#07090F", light: "#FFFFFF" },
           }).then(setQrDataUrl);
         } else {
           // Fallback sample pass matching Mockup 10
@@ -53,7 +53,7 @@ function PassContent() {
           QRCode.toDataURL(`${window.location.origin}/pass/${mockPass.id}`, {
             width: 250,
             margin: 1,
-            color: { dark: "#090314", light: "#FFFFFF" },
+            color: { dark: "#07090F", light: "#FFFFFF" },
           }).then(setQrDataUrl);
         }
         setLoading(false);
@@ -85,7 +85,7 @@ function PassContent() {
       </div>
 
       {/* TICKET / BADGE CARD - EXACT LAYOUT AND COLOR FROM MOCKUP 10 */}
-      <div className="max-w-2xl mx-auto bg-gradient-to-r from-[#FCECD7] via-[#F9E3C5] to-[#FCECD7] rounded-3xl p-6 sm:p-8 text-[#090314] shadow-2xl border-4 border-[#F59E0B]/40 relative overflow-hidden">
+      <div className="max-w-2xl mx-auto bg-gradient-to-r from-[#FCECD7] via-[#F9E3C5] to-[#FCECD7] rounded-3xl p-6 sm:p-8 text-[#07090F] shadow-2xl border-4 border-[#F59E0B]/40 relative overflow-hidden">
         
         {/* Subtle decorative watermark */}
         <div className="absolute -right-8 -bottom-8 w-40 h-40 bg-[#F59E0B]/10 rounded-full blur-xl pointer-events-none" />
@@ -94,11 +94,11 @@ function PassContent() {
           
           {/* Left Brand Identity: Trophy Icon + RIVALCHAMPS */}
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <div className="w-14 h-14 rounded-2xl bg-[#090314] flex items-center justify-center text-[#F59E0B] shadow-md mb-2">
+            <div className="w-14 h-14 rounded-2xl bg-[#07090F] flex items-center justify-center text-[#F59E0B] shadow-md mb-2">
               <Trophy className="w-8 h-8 text-[#F59E0B]" />
             </div>
-            <span className="font-black text-2xl tracking-tight uppercase italic font-sans text-[#090314]">
-              RIVAL<span className="text-[#D946EF]">CHAMPS</span>
+            <span className="font-black text-2xl tracking-tight uppercase italic font-sans text-[#07090F]">
+              RIVAL<span className="text-[#247BFF]">CHAMPS</span>
             </span>
             <span className="text-[10px] font-mono uppercase font-bold tracking-widest text-[#F97316]">
               OFFICIAL PARTICIPANT PASS
@@ -109,13 +109,13 @@ function PassContent() {
           <div className="text-center sm:text-left space-y-1">
             <div className="text-sm">
               <span className="text-slate-600 font-medium">Team: </span>
-              <strong className="text-base text-[#090314] font-bold">
+              <strong className="text-base text-[#07090F] font-bold">
                 {registration?.team_name || "Alpha Squad"}
               </strong>
             </div>
             <div className="text-sm">
               <span className="text-slate-600 font-medium">Sport: </span>
-              <strong className="text-[#090314] font-bold">
+              <strong className="text-[#07090F] font-bold">
                 {registration?.sport_id || "Football"}
               </strong>
             </div>
@@ -129,7 +129,7 @@ function PassContent() {
 
           {/* Right: QR Code with [Valid] Badge matching Mockup 10 */}
           <div className="flex flex-col items-center">
-            <div className="p-2 bg-white rounded-2xl border-2 border-[#090314]/10 shadow-sm">
+            <div className="p-2 bg-white rounded-2xl border-2 border-[#07090F]/10 shadow-sm">
               {qrDataUrl && (
                 <img src={qrDataUrl} alt="Athlete Pass QR" className="w-24 h-24 sm:w-28 sm:h-28" />
               )}
@@ -142,7 +142,7 @@ function PassContent() {
         </div>
 
         {/* Footer Bar inside pass */}
-        <div className="mt-6 pt-4 border-t border-[#090314]/15 flex items-center justify-between text-[11px] text-slate-700 font-mono">
+        <div className="mt-6 pt-4 border-t border-[#07090F]/15 flex items-center justify-between text-[11px] text-slate-700 font-mono">
           <span>Captain: {registration?.captain_name || "Muhammad Ahmad"}</span>
           <span>Reg: {registration?.captain_reg_no || "2023-CS-124"}</span>
         </div>
@@ -170,8 +170,8 @@ function PassContent() {
 
 export default function PassPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#090314] flex items-center justify-center font-mono text-xs text-slate-400">Loading pass...</div>}>
-      <div className="min-h-screen bg-[#090314] text-slate-100 flex flex-col font-sans selection:bg-[#D946EF] selection:text-white">
+    <Suspense fallback={<div className="min-h-screen bg-[#07090F] flex items-center justify-center font-mono text-xs text-slate-400">Loading pass...</div>}>
+      <div className="min-h-screen bg-[#07090F] text-slate-100 flex flex-col font-sans selection:bg-[#247BFF] selection:text-white">
         <Navbar />
         <PassContent />
         <Footer />
