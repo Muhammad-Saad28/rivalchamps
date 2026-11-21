@@ -27,7 +27,8 @@ import {
   BookOpen,
   MessageCircle,
   Phone,
-  Search
+  Search,
+  X
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { Sport, Announcement, Competition, Lead, Rule } from "@/types";
@@ -42,7 +43,11 @@ export default function HomePage() {
     announcements: Announcement[];
   } | null>(null);
 
-  const [selectedSportId, setSelectedSportId] = useState<string>("");
+  const [activeModal, setActiveModal] = useState<{
+    sport: Sport & { leadIds: string[] };
+    tab: "rules" | "leads";
+  } | null>(null);
+
   const [sportFilterCategory, setSportFilterCategory] = useState<string>("All");
 
   const [loading, setLoading] = useState(true);
@@ -60,9 +65,6 @@ export default function HomePage() {
       .then((res) => res.json())
       .then((json) => {
         setData(json);
-        if (json.sports && json.sports.length > 0) {
-          setSelectedSportId(json.sports[0].id);
-        }
         setLoading(false);
       })
       .catch((err) => {
@@ -131,15 +133,11 @@ export default function HomePage() {
   const leadsList = data?.leads || [];
   const rulesList = data?.rules || [];
 
-  const activeSport = sportsList.find((s) => s.id === selectedSportId) || sportsList[0];
-  const activeSportLeads = leadsList.filter((l) => activeSport?.leadIds?.includes(l.id));
-  const activeSportRules = rulesList.filter((r) => r.sport_id === activeSport?.id);
-
-  const formatWhatsAppUrl = (phone?: string) => {
+  const formatWhatsAppUrl = (phone?: string, sportName?: string) => {
     if (!phone) return null;
     const cleanNumber = phone.replace(/[^0-9]/g, "");
     const waNumber = cleanNumber.startsWith("0") ? "92" + cleanNumber.slice(1) : cleanNumber;
-    return `https://wa.me/${waNumber}?text=${encodeURIComponent(`Hello! I'm inquiring about ${activeSport?.name || "Sports Gala 2026"}.`)}`;
+    return `https://wa.me/${waNumber}?text=${encodeURIComponent(`Hello! I'm inquiring about ${sportName || "Sports Gala 2026"}.`)}`;
   };
 
   const getSportIcon = (name: string, slug: string): string => {
@@ -381,14 +379,14 @@ export default function HomePage() {
       </section>
 
       {/* ======================================================== */}
-      {/* 3. TWO-COLUMN LAYOUT: GAMES DETAILS (RULES & LEADS) ON LEFT & LIVE UPDATES ON RIGHT */}
+      {/* 3. TWO-COLUMN LAYOUT: GAMES DETAILS (IN 3-COLUMN CARDS) ON LEFT & LIVE UPDATES ON RIGHT */}
       {/* ======================================================== */}
       <section className="py-14 bg-[#07090F] border-b border-[#BBD8FF]/15 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* LEFT COLUMN: GAMES DETAILS (RULES & LEADS WITH WHATSAPP) - 7 COLS */}
-            <div className="lg:col-span-7 space-y-6">
+            {/* LEFT COLUMN: GAMES DETAILS (IN LAYOUT OF 3 CARDS PER ROW) - 8 COLS */}
+            <div className="lg:col-span-8 space-y-6">
               
               {/* Main Games Details Gaussian Card */}
               <div className="gaussian-dark-card p-6 sm:p-7 border border-[#BBD8FF]/40 space-y-6">
@@ -404,7 +402,7 @@ export default function HomePage() {
                         GAMES &amp; DISCIPLINE DETAILS
                       </h3>
                       <p className="text-[11px] text-slate-600 font-medium">
-                        Official match guidelines, discipline rules &amp; direct coordinator contacts
+                        Quick match guidelines, venues, capacities &amp; direct coordinator contacts
                       </p>
                     </div>
                   </div>
@@ -427,177 +425,66 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Sport Selector Chips */}
-                <div className="relative z-10 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+                {/* 3-COLUMN GRID OF SPORT CARDS */}
+                <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   {sportsList
                     .filter((sp) => sportFilterCategory === "All" || sp.category === sportFilterCategory)
-                    .map((sp) => {
-                      const isSelected = sp.id === activeSport?.id;
+                    .map((sport) => {
                       return (
-                        <button
-                          key={sp.id}
-                          onClick={() => setSelectedSportId(sp.id)}
-                          className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 border ${
-                            isSelected
-                              ? "bg-gradient-to-r from-[#247BFF] to-[#398BFF] text-white border-transparent shadow-[0_4px_15px_rgba(36,123,255,0.35)]"
-                              : "bg-white/80 hover:bg-white text-slate-700 border-[#BBD8FF]/40 hover:border-[#247BFF]/50"
-                          }`}
+                        <div
+                          key={sport.id}
+                          className="p-4 rounded-2xl bg-white/85 border border-[#BBD8FF]/40 hover:border-[#247BFF]/60 transition-all shadow-sm flex flex-col justify-between space-y-3"
                         >
-                          <span>{getSportIcon(sp.name, sp.slug)}</span>
-                          <span>{sp.name}</span>
-                        </button>
+                          {/* Name & Details */}
+                          <div>
+                            <div className="flex items-start gap-2 mb-1.5">
+                              <span className="text-xl shrink-0 mt-0.5">{getSportIcon(sport.name, sport.slug)}</span>
+                              <h4 className="text-sm font-black uppercase text-[#090D1A] leading-tight line-clamp-2">
+                                {sport.name}
+                              </h4>
+                            </div>
+
+                            {/* Venue & Capacity */}
+                            <div className="mt-2.5 pt-2 border-t border-[#BBD8FF]/30 space-y-1.5 text-[11px] text-slate-600 font-medium">
+                              <div className="flex items-center gap-1.5 truncate">
+                                <MapPin className="w-3.5 h-3.5 text-[#1D5AB8] shrink-0" />
+                                <span className="truncate" title={sport.venue}>{sport.venue}</span>
+                              </div>
+                              <div className="flex items-center gap-1.5">
+                                <Trophy className="w-3.5 h-3.5 text-[#1D5AB8] shrink-0" />
+                                <span>{sport.participation_limit} Participants / Teams</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* 2 Buttons: Leads & Rules */}
+                          <div className="pt-2 border-t border-[#BBD8FF]/30 grid grid-cols-2 gap-2">
+                            <button
+                              onClick={() => setActiveModal({ sport, tab: "leads" })}
+                              className="px-2 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100/80 border border-[#BBD8FF]/40 text-[#1D5AB8] text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1 transition-all cursor-pointer"
+                            >
+                              <Users className="w-3 h-3" />
+                              <span>Leads</span>
+                            </button>
+
+                            <button
+                              onClick={() => setActiveModal({ sport, tab: "rules" })}
+                              className="px-2 py-1.5 rounded-lg bg-[#247BFF]/10 hover:bg-[#247BFF]/20 border border-[#247BFF]/30 text-[#164E9E] text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1 transition-all cursor-pointer"
+                            >
+                              <Shield className="w-3 h-3 text-[#247BFF]" />
+                              <span>Rules</span>
+                            </button>
+                          </div>
+                        </div>
                       );
                     })}
                 </div>
 
-                {/* Active Sport Overview Card */}
-                {activeSport && (
-                  <div className="relative z-10 space-y-5">
-                    
-                    <div className="p-4 sm:p-5 rounded-2xl bg-white/80 border border-[#BBD8FF]/40 shadow-sm space-y-3">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <div className="flex items-center gap-2">
-                          <span className="text-2xl">{getSportIcon(activeSport.name, activeSport.slug)}</span>
-                          <div>
-                            <h4 className="text-lg font-black uppercase text-[#090D1A] tracking-tight">
-                              {activeSport.name}
-                            </h4>
-                            <span className="text-[10px] font-mono font-bold uppercase text-[#1D5AB8]">
-                              Category: {activeSport.category} Tournament
-                            </span>
-                          </div>
-                        </div>
-
-                        <Link
-                          href={`/sports/${activeSport.slug}`}
-                          className="text-xs font-bold text-[#1D5AB8] hover:text-[#0272E4] transition-colors flex items-center gap-1 self-start sm:self-auto"
-                        >
-                          <span>View Full Arena Page</span>
-                          <ChevronRight className="w-3.5 h-3.5" />
-                        </Link>
-                      </div>
-
-                      <p className="text-xs text-slate-700 leading-relaxed">
-                        {activeSport.description}
-                      </p>
-
-                      <div className="pt-2 border-t border-[#BBD8FF]/30 flex flex-wrap items-center gap-4 text-xs text-slate-600 font-medium">
-                        <span className="flex items-center gap-1.5">
-                          <MapPin className="w-3.5 h-3.5 text-[#1D5AB8]" />
-                          <strong className="text-[#090D1A]">Venue:</strong> {activeSport.venue}
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          <Trophy className="w-3.5 h-3.5 text-[#1D5AB8]" />
-                          <strong className="text-[#090D1A]">Capacity:</strong> {activeSport.participation_limit} teams / athletes
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Rules & Guidelines Section */}
-                    <div className="p-4 sm:p-5 rounded-2xl bg-white/80 border border-[#BBD8FF]/40 shadow-sm space-y-3">
-                      <div className="flex items-center gap-2 pb-2 border-b border-[#BBD8FF]/30">
-                        <Shield className="w-4 h-4 text-[#1D5AB8]" />
-                        <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#090D1A]">
-                          RULES &amp; REGULATIONS SUMMARY
-                        </h4>
-                      </div>
-
-                      {activeSport.rules_summary ? (
-                        <div className="p-3.5 rounded-xl bg-blue-50/60 border border-[#BBD8FF]/40 text-xs text-slate-800 leading-relaxed font-sans">
-                          {activeSport.rules_summary}
-                        </div>
-                      ) : (
-                        <p className="text-xs text-slate-600 italic">
-                          Standard collegiate rules apply. Direct match regulations will be announced by the referee.
-                        </p>
-                      )}
-
-                      {/* Detailed Rules if available */}
-                      {activeSportRules.length > 0 && (
-                        <div className="space-y-2 pt-1">
-                          {activeSportRules.map((rule) => (
-                            <div key={rule.id} className="p-3 rounded-xl bg-white border border-[#BBD8FF]/40 text-xs">
-                              <span className="text-[10px] font-mono font-bold uppercase text-[#1D5AB8] block mb-1">
-                                {rule.title}
-                              </span>
-                              <p className="text-slate-700 leading-snug">{rule.content}</p>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Appointed Sports Leads & Direct WhatsApp Section */}
-                    <div className="p-4 sm:p-5 rounded-2xl bg-white/80 border border-[#BBD8FF]/40 shadow-sm space-y-3">
-                      <div className="flex items-center justify-between pb-2 border-b border-[#BBD8FF]/30">
-                        <div className="flex items-center gap-2">
-                          <Users className="w-4 h-4 text-[#1D5AB8]" />
-                          <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#090D1A]">
-                            APPOINTED SPORTS LEADS &amp; CONTACTS
-                          </h4>
-                        </div>
-                        <span className="text-[10px] font-mono text-[#1D5AB8] font-bold">
-                          Click number for WhatsApp
-                        </span>
-                      </div>
-
-                      {activeSportLeads.length === 0 ? (
-                        <p className="text-xs text-slate-600 italic py-2">
-                          Coordinators are being finalized for this discipline.
-                        </p>
-                      ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                          {activeSportLeads.map((lead) => {
-                            const waUrl = formatWhatsAppUrl(lead.phone);
-                            return (
-                              <div
-                                key={lead.id}
-                                className="p-3.5 rounded-xl bg-white border border-[#BBD8FF]/40 hover:border-[#247BFF]/60 transition-all shadow-sm flex flex-col justify-between space-y-2"
-                              >
-                                <div>
-                                  <span className="font-bold text-sm text-[#090D1A] block">
-                                    {lead.name}
-                                  </span>
-                                  <span className="text-[10px] font-mono font-semibold uppercase text-[#1D5AB8] block">
-                                    Discipline Coordinator
-                                  </span>
-                                </div>
-
-                                {lead.phone ? (
-                                  <div className="pt-2 border-t border-[#BBD8FF]/30">
-                                    <a
-                                      href={waUrl || `tel:${lead.phone}`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/40 text-[#075E54] hover:text-[#128C7E] transition-all group w-full justify-between"
-                                    >
-                                      <span className="flex items-center gap-1.5 font-mono text-xs font-bold">
-                                        <MessageCircle className="w-3.5 h-3.5 text-[#25D366] fill-[#25D366]" />
-                                        <span>{lead.phone}</span>
-                                      </span>
-                                      <span className="text-[9px] font-mono font-black uppercase text-[#25D366] bg-[#25D366]/15 px-1.5 py-0.5 rounded group-hover:bg-[#25D366] group-hover:text-white transition-all">
-                                        CHAT
-                                      </span>
-                                    </a>
-                                  </div>
-                                ) : (
-                                  <span className="text-[11px] text-slate-400 italic">No phone listed</span>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-
-                  </div>
-                )}
-
               </div>
             </div>
 
-            {/* RIGHT COLUMN: LIVE UPDATES & MATCH TELEMETRY - 5 COLS */}
-            <div className="lg:col-span-5 space-y-6">
+            {/* RIGHT COLUMN: LIVE UPDATES & MATCH TELEMETRY - 4 COLS */}
+            <div className="lg:col-span-4 space-y-6">
               
               <div className="gaussian-dark-card p-6 sm:p-7 border border-[#BBD8FF]/40 flex flex-col justify-between space-y-5">
                 
@@ -705,11 +592,267 @@ export default function HomePage() {
 
               </div>
 
+              {/* LIVE MATCH HIGHLIGHT HERO CARD */}
+              <div className="gaussian-dark-card p-5 border border-[#BBD8FF]/40 space-y-3.5">
+                <div className="relative z-10 flex items-center justify-between pb-2.5 border-b border-[#BBD8FF]/30">
+                  <div className="flex items-center gap-2">
+                    <Radio className="w-4 h-4 text-[#247BFF] animate-pulse" />
+                    <h3 className="text-xs font-mono font-bold uppercase tracking-widest text-[#090D1A]">
+                      FEATURED LIVE MATCH
+                    </h3>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full bg-red-500/15 border border-red-500/30 text-red-600 text-[10px] font-mono font-black uppercase tracking-wider flex items-center gap-1 animate-pulse">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                    ON AIR
+                  </span>
+                </div>
+
+                <div className="relative z-10 p-3.5 rounded-xl bg-white/80 border border-[#BBD8FF]/40 space-y-2">
+                  <div className="flex items-center justify-between text-[11px] font-mono text-slate-500">
+                    <span className="font-bold text-[#1D5AB8] uppercase">Football — Male Championship</span>
+                    <span className="text-red-500 font-bold">2nd Half • 68&apos;</span>
+                  </div>
+
+                  <div className="flex items-center justify-between py-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">⚽</span>
+                      <div>
+                        <span className="font-black text-sm text-[#090D1A] block">CS Warriors</span>
+                        <span className="text-[10px] font-mono text-slate-500">Computer Science</span>
+                      </div>
+                    </div>
+
+                    <div className="px-3 py-1.5 rounded-lg bg-[#0C0E14] text-white font-mono font-black text-base shadow-sm">
+                      2 — 1
+                    </div>
+
+                    <div className="flex items-center gap-2 text-right">
+                      <div>
+                        <span className="font-black text-sm text-[#090D1A] block">Tech Titans</span>
+                        <span className="text-[10px] font-mono text-slate-500">Electrical Engg</span>
+                      </div>
+                      <span className="text-xl">🛡️</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-[#BBD8FF]/20 flex items-center justify-between text-[10px] font-mono text-slate-600">
+                    <span>Venue: UET Main Football Stadium</span>
+                    <Link
+                      href="/schedule"
+                      className="text-[#1D5AB8] font-bold hover:underline flex items-center gap-0.5"
+                    >
+                      <span>Match Center</span>
+                      <ChevronRight className="w-3 h-3" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* CURRENT LEADERBOARD (TOP 5) */}
+              <div className="gaussian-dark-card p-5 border border-[#BBD8FF]/40 space-y-3.5">
+                <div className="relative z-10 flex items-center justify-between pb-2.5 border-b border-[#BBD8FF]/30">
+                  <div className="flex items-center gap-2">
+                    <Trophy className="w-4 h-4 text-[#1D5AB8]" />
+                    <h3 className="text-xs font-mono font-bold uppercase tracking-widest text-[#090D1A]">
+                      CURRENT LEADERBOARD <span className="text-[#1D5AB8] text-[10px]">(Top 5)</span>
+                    </h3>
+                  </div>
+                  <Link
+                    href="/leaderboard"
+                    className="text-xs font-bold text-[#164E9E] hover:text-[#0272E4] transition-colors flex items-center gap-1"
+                  >
+                    <span>View All</span>
+                    <ChevronRight className="w-3 h-3" />
+                  </Link>
+                </div>
+
+                <div className="relative z-10 overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-[#BBD8FF]/30 text-[10px] font-mono uppercase text-[#164E9E]">
+                        <th className="py-2 px-1.5">#</th>
+                        <th className="py-2 px-1.5">Team</th>
+                        <th className="py-2 px-1.5 text-center">Pts</th>
+                        <th className="py-2 px-1.5 text-center">🥇</th>
+                        <th className="py-2 px-1.5 text-center">🥈</th>
+                        <th className="py-2 px-1.5 text-center">🥉</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#BBD8FF]/20 font-sans">
+                      {topLeaderboard.map((item) => (
+                        <tr key={item.rank} className="hover:bg-blue-50/50 transition-colors">
+                          <td className="py-2 px-1.5 font-mono font-bold text-[#164E9E]">{item.rank}</td>
+                          <td className="py-2 px-1.5 font-bold text-[#090D1A] truncate max-w-[110px]">{item.team}</td>
+                          <td className="py-2 px-1.5 text-center font-mono font-black text-[#090D1A]">{item.points}</td>
+                          <td className="py-2 px-1.5 text-center font-mono text-[#1D5AB8] font-bold">{item.gold}</td>
+                          <td className="py-2 px-1.5 text-center font-mono text-slate-600">{item.silver}</td>
+                          <td className="py-2 px-1.5 text-center font-mono text-[#164E9E]">{item.bronze}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
             </div>
 
           </div>
         </div>
       </section>
+
+      {/* POPUP MODAL FOR RULES & APPOINTED LEADS */}
+      {activeModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="relative w-full max-w-lg gaussian-dark-card p-6 sm:p-7 border border-[#BBD8FF]/40 shadow-2xl space-y-5 max-h-[85vh] overflow-y-auto">
+            
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-3 border-b border-[#BBD8FF]/30">
+              <div className="flex items-center gap-2.5">
+                <span className="text-2xl">{getSportIcon(activeModal.sport.name, activeModal.sport.slug)}</span>
+                <div>
+                  <h3 className="text-base font-black uppercase text-[#090D1A] tracking-tight">
+                    {activeModal.sport.name}
+                  </h3>
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#1D5AB8]">
+                    {activeModal.tab === "leads" ? "Appointed Field Coordinators" : "Rules & Regulations"}
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => setActiveModal(null)}
+                className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Tabs */}
+            <div className="flex items-center gap-2 p-1 rounded-xl bg-slate-100 border border-[#BBD8FF]/30">
+              <button
+                onClick={() => setActiveModal({ ...activeModal, tab: "leads" })}
+                className={`flex-1 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                  activeModal.tab === "leads"
+                    ? "bg-[#247BFF] text-white shadow-sm"
+                    : "text-slate-600 hover:text-[#090D1A]"
+                }`}
+              >
+                <Users className="w-3.5 h-3.5" />
+                <span>Leads &amp; WhatsApp</span>
+              </button>
+              <button
+                onClick={() => setActiveModal({ ...activeModal, tab: "rules" })}
+                className={`flex-1 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                  activeModal.tab === "rules"
+                    ? "bg-[#247BFF] text-white shadow-sm"
+                    : "text-slate-600 hover:text-[#090D1A]"
+                }`}
+              >
+                <Shield className="w-3.5 h-3.5" />
+                <span>Match Rules</span>
+              </button>
+            </div>
+
+            {/* Modal Body: LEADS TAB */}
+            {activeModal.tab === "leads" && (
+              <div className="space-y-3">
+                <p className="text-[11px] text-slate-600 font-mono">
+                  Tap any number below to chat directly with the sports lead on WhatsApp:
+                </p>
+
+                {(() => {
+                  const sportLeads = leadsList.filter((l) => activeModal.sport.leadIds?.includes(l.id));
+                  if (sportLeads.length === 0) {
+                    return (
+                      <p className="text-xs text-slate-500 italic py-4 text-center">
+                        Coordinators will be announced shortly.
+                      </p>
+                    );
+                  }
+                  return (
+                    <div className="space-y-2.5">
+                      {sportLeads.map((lead) => {
+                        const waUrl = formatWhatsAppUrl(lead.phone, activeModal.sport.name);
+                        return (
+                          <div
+                            key={lead.id}
+                            className="p-3.5 rounded-xl bg-white border border-[#BBD8FF]/40 shadow-sm flex items-center justify-between gap-3"
+                          >
+                            <div>
+                              <span className="font-bold text-sm text-[#090D1A] block">{lead.name}</span>
+                              <span className="text-[10px] font-mono text-[#1D5AB8] font-bold block uppercase">
+                                Field Lead
+                              </span>
+                            </div>
+
+                            {lead.phone ? (
+                              <a
+                                href={waUrl || `tel:${lead.phone}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[#075E54] hover:text-[#128C7E] transition-all group"
+                              >
+                                <MessageCircle className="w-4 h-4 text-[#25D366] fill-[#25D366]" />
+                                <span className="font-mono text-xs font-bold">{lead.phone}</span>
+                              </a>
+                            ) : (
+                              <span className="text-xs text-slate-400 italic">No number</span>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+
+            {/* Modal Body: RULES TAB */}
+            {activeModal.tab === "rules" && (
+              <div className="space-y-3">
+                {activeModal.sport.rules_summary ? (
+                  <div className="p-4 rounded-xl bg-blue-50/70 border border-[#BBD8FF]/40 text-xs text-slate-800 leading-relaxed font-sans">
+                    {activeModal.sport.rules_summary}
+                  </div>
+                ) : (
+                  <p className="text-xs text-slate-600 italic">
+                    Standard collegiate tournament guidelines apply. Technical specifics will be verified before kick-off.
+                  </p>
+                )}
+
+                {(() => {
+                  const detailedRules = rulesList.filter((r) => r.sport_id === activeModal.sport.id);
+                  if (detailedRules.length > 0) {
+                    return (
+                      <div className="space-y-2 pt-1">
+                        {detailedRules.map((rule) => (
+                          <div key={rule.id} className="p-3 rounded-xl bg-white border border-[#BBD8FF]/40 text-xs">
+                            <span className="text-[10px] font-mono font-bold uppercase text-[#1D5AB8] block mb-1">
+                              {rule.title}
+                            </span>
+                            <p className="text-slate-700 leading-snug">{rule.content}</p>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
+
+                <div className="pt-2 text-right">
+                  <Link
+                    href={`/sports/${activeModal.sport.slug}`}
+                    className="text-xs font-bold text-[#1D5AB8] hover:text-[#0272E4] inline-flex items-center gap-1"
+                  >
+                    <span>Full Sport Arena &amp; Brackets</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            )}
+
+          </div>
+        </div>
+      )}
 
       {/* ======================================================== */}
       {/* 4. CALL TO ACTION BANNER */}
